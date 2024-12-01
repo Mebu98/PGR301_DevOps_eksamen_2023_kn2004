@@ -1,4 +1,23 @@
 # Eksamen PGR301 2023
+# ToC
+<!-- ToC Start -->
+- [Oppgavetekst](#oppgavetekst)
+  * [Oppgave 1 - Kjell's python code](#oppgave1)
+  * [Oppgave 2 - Overgang til Java og Spring Boot](#oppgave2)
+  * [Oppgave 3 - Terraform, AWS Apprunner og Infrastruktur som kode](#oppgave3)
+  * [Oppgave 4 - Feedback i AWS](#oppgave4)
+  * [Oppgave 5 - Drøfteoppgaver](#oppgave5)
+- [Besvarelse og egen checklist](#besvarelse)
+  * [Besvarelse 1 - Kjell's python code](#besvarelse1)
+  * [Besvarelse 2 - Overgang til Java og Spring Boot](#besvarelse2)
+  * [Besvarelse 3 - Terraform, AWS Apprunner og Infrastruktur som kode](#besvarelse3)
+  * [Besvarelse 4 - Feedback i AWS](#besvarelse4)
+  * [Besvarelse 5 - Drøfteoppgaver](#besvarelse5)
+    * [Forklar hva kontinuerlig integrasjon (CI) er og diskuter dens betydning i utviklingsprosessen](#b5a)
+    * [Sammenligning av Scrum/Smidig og DevOps fra et Utviklers Perspektiv](#b5b)
+    * [Det Andre Prinsippet - Feedback](#b5c)
+
+<!-- Toc End -->
 
 ## Secrets og Variables som trengs for at Github Actions skal kjøre som forventet.
 ### AWS (environment secrets)
@@ -16,158 +35,9 @@
 -  ECR_REPO          = Linken til ECR repo der Docker Imagen skal bli lastet opp (f.eks "244530008913.dkr.ecr.eu-west-1.amazonaws.com/2004-ecr-repo")
 
 
-## Begrunnelser og bevsarelser:
-### Oppgave 4. Feedback
-![bilde](https://github.com/Mebu98/eksamen_2023_kn2004/assets/89260657/47d6f960-3158-4813-95b0-8a1fa86ccfdb)
-
-#### A. Utvid applikasjonen og legg inn "Måleinstrumenter"
-Jeg la til måleinstrumenter som måler antall bilder scannet, antall personer sett, antall personer uten maske, og antall personer uten hjelm. 
-Videre har jeg lagt til timers for hvor lang tid det tok å analysere hvert bilde, men de har jeg ikke fått lagt til ennå. 
-
-#### B. CloudWatch Alarm og Terraform moduler
-Jeg har lagt til en alarm som går av hvis anntall personer uten hjelm stiger over 25%, dette kan muligens være nyttig på f.eks en byggeplass der alle burde gå med hjelm. 
-Grunnen til at jeg valgte 25% som grensen er fordig det er mulig at folk som ikke er på byggeplassen kan evt bli sett på bilde, videre er det jo mulig at den feil-registrer hvis hode til en person er gjemt (har ikke eksperimentert så mye...)
-
-### Oppgave 5. Drøfteoppgaver
-### A. Kontinuerlig Integrering
-CI er en programmeringsmetodikk som innebærer at å sammenslå kodeendringer fra flere utviklere i et felles område ofte og automatisk. En vanlig utviklingsprosess innebærer ofte et par steg; utvikling -> bygging -> testing -> lansering -> analysering av bruk -> planlegging -> og så tilbake til utvikling. CI gjør det dermed mulig å automatisere store deler av bygging, testing, og lanseringen, som fort kan kreve mye repetisjon og skriving. 
-Fordeler med CI:
--	Reduserer sjansen til store merge-conflicts og integrasjonsfeil ved å holde kodebasen som blir jobbet på i team oppdatert.
--	Rask tilbakemelding på kvalitet og funksjonaliteten til koden gjennom automatisert validering og testing.
--	Gjør det lettere å jobbe sammen i team når man har litt ide av hva andre holder på med.
-
-Ulemper med CI:
--	Krever trening for å bli kjent med CI verktøy og arbeidsmetodikk.
--	Krever servere hvor bygging og testing kan bli utført, dette kan øke kompleksiteten og kostnadene til infrastrukturen.
--	Krever hyppig sammenslåing, siden hvis man ender opp for langt bak main branch kan det lede til store merge-conflicts og bugs.
-	
-Eksempel på praktisk arbeid med CI:
-1.	Du jobber i et team med 5 andre, hvor hver av dere holder på med ditt i en egen lokal branch av main.
-2.	Når du er ferdig med det du holder på med laster du opp den lokale branch’en din og sender inn en pull-request til main.
-3.	pull-request’en trigger en automatisert workflow fil, som f.eks github actions som bygger og tester prosjektet etter du har lastet det opp sånn at alt ‘’funker’’ som det skal. Hvis den mislykkes noe sted, sender den en melding til deg / teamet.
-4.	Andre utviklere på teamet ditt ser over hva du har gjort og resultatene til workflows’ene.
-5.	Hvis de andre syntes det ser bra ut og det passerer alle testene, så blir den sendt videre til main branch
-6.	Main branch kjører sin egen workflow for å dobbelt sjekke at alt funker i main.
-7.	Hvis main sin workflow er satt opp for det, så er det også mulig at lanseringen blir automatisert.
-
-### B. Sammenligning av Scrum/Smidig og DevOps fra et Utviklers Perspektiv
-#### Scrum / Smidig metodikk
-Scrum er en metodikk som brukes til å utvikle, levere, og vedlikeholde komplekse produkter. Det er basert på erfaringsfilosofi, der kunnskap kommer fra erfaring og beslutninger tas ut ifra det som er kjent. Scrum har tre hoved pilarer; åpenhet, introspeksjon, og tilpasning. 
-
-Scrum består av tre roller:
-1.	Produkteieren er ansvarlig for å representere kunden og prioritere oppgavene som skal utføres. De har som oftest ansvar for å lage og vedlikeholde «product backlog», som er en liste av krav som skal inngå i produktet.
-2.	Utviklingsteamet har ansvar for å bygge et produkt i henhold til produkteierens prioritering. De er ofte selvorganiserende, tverrfaglig, og samarbeidsorientert.
-3.	Scrum lederen er ansvarlig for godt samarbeid og støtte i løpet prosessen. De hjelper produkteieren, utviklingsteamet, og organisasjonen med å forstå og følge scrum rammeverket.
-
-I scrum jobber man ofte i «sprints» som ofte er et par uker. I løpet av en sprint har man et par faste hendelser: 
--	Sprintplanlegging er et møte der produkteieren og utviklingsteamet blir enige om hva som skal gjøres i den kommende sprinten. Møtet består av to deler: den første delen handler om å velge hvilke elementer fra produktkøen som skal inngå i sprinten, og den andre delen handler om å lage en plan for hvordan disse elementene skal iverksettes.
--	Daglig scrum er et kort møte hver dag der utviklingsteamet deler status, fremdrift, og utfordringer med hverandre. Møtet varer ofte ikke lengre enn 15 minutter og har tre spørsmål: hva har jeg gjort siden forrige møte, hva skal jeg gjøre før neste møte, og hva hindrer meg i å gjøre mitt arbeid.
--	Sprintgjennomgang er et møte mot slutten av sprinten der utviklingsteamet presenterer produktinkrementet som er laget i sprinten for produkteieren. Møtet har som formål å samle tilbakemeldinger, evaluere resultatet og justere produktkøen.
--	Sprintevaluering med burndown-diagram er et møte der utviklingsteamet og scrum lederen reflekterer over sprinten som har gått og identifiserer muligheter for forbedring. Møtet har som formål å øke kvaliteten, effektiviteten og tilfredsheten i teamet.
-
-Ulemper med scrum:
--	Scrum krever en arbeidskultur av åpenhet og tillit, hvor man kan be om assistanse hvis man møter på noe man ikke har kunnskap til og kan akseptere feil.
--	Krever at produkteier har en klar visjon for produktet. Hvis produkteieren ikke har nokk kunnskap eller autoritet kan det føre til misforståelser og konflikter mellom dem og utviklingsteamet.
--	Scrum lederen har en viktig rolle i å fasilitere og støtte prosessen, men ikke en tradisjonell prosjektlederrolle. Scrum lederen skal ikke gi instruksjoner, delegere oppgaver eller kontrollere teamet, men heller hjelpe teamet med å fjerne hindringer, løse konflikter og forbedre seg. Dette kan være utfordrende for Scrum ledere som har vanskelig for å gi slipp på autoritet eller ansvar, eller for noen team som forventer mer ledelse eller veiledning.
-
-
-#### DevOps
-DevOps er en metodikk som har som mål å automatisere så mye som mulig av utviklingssyklusen. Noen av de grunnleggene prinsippene til DevOps er:
--	Samarbeid, utviklings- og driftsteam skal jobbe sammen, dele, og gi tilbakemelding til hverandre gjennom hele prossesen.
--	Automatisering, ett av de viktigste elementene av DevOps er å automatisere så mye som mulig av utviklingssyklusen. Dette gir mer tid til utviklere, slik at de kan skrive mer kode og utvikle funksjoner fortere. Det bidrar også til reduksjon av menneskelige feil.
--	
-Fordeler med DevOps:
--	Ved å bruke automatiserte tester, CI, og CD kan teamene oppdage og rette feil raskere.
--	Med bruken av smidige metodikker kan teamene levere programvaren raskere og oftere, dette kan gi dem et konkurransefortrinn i markedet.
--	Automatisering av så mye som mulig reduserer mye manuelt arbeid, menneskelige feil, og sløsing.
-
-Ulemper med DevOps:
--	DevOps kan kreve at alle teammedlemmene har et bredt spektrum av ferdigheter og kunnskap til forskjellig verktøy.
--	DevOps kan innebære bruken av mange verktøy og tjenester, noe som kan påvirke kompleksiteten, skalerbarheten, og fleksibiliteten. 
--	Hvis det er mange verktøy, prosesser, og tjenester som blir tatt i bruk i automatiseringen kan det fort bli problemer hvis det viser seg å være ett problem med en av dem.
-
-#### Sammenlign og kontrast
-
-Scrum er et rammeverk av roller, regler, og hendelser. Det består av iterasjoner kalt sprinter, som vanligvis varer fra en til fire uker, og sikrer dermed regelmessig levering av nye produkt versjoner. DevOps derimot er en samling av teknologier, ideer, og prosesser som brukes av både utviklings og driftsteam for å forbedre utviklingsprosessen. Begge metodologiene vektlegger effektiv kommunikasjon mellom de forskjellige partiene i gruppen.
-Scrum bruker ulike artefakter som; produktloggen, sprintloggen, og burndown-grafen for å planlegge, utføre, og evaluere arbeidet. DevOps derimot fokuserer på automatisering og optimalisering av utviklingsprosessen. 
-Scrum er en metodikk som kan brukes for å utvikle nesten alle typer prosjekter, og er egnet for de som krever regelmessige endringer, tilbakemeldinger, og forbedringer. Scrum er også godt egnet for prosjekter som har team med tverrfaglig erfaring og kan jobbe selvstendig og kreativt. DevOps er en kultur som vil nesten påvirke hele organisasjonen, og påvirker alle aspekter av utviklingsprosessen. DevOps er kritisk for prosjekter som krever hyppig utgivelser og ikke har råd til lang ventetid mellom utvikling og drift.
-
-Til slutt er Scrum og DevOps ikke motstridene metodikker, en kjent organisasjon som bruker begge metodikkene sammen er Microsoft!
-
-
-### C. Det Andre Prinsippet - Feedback
-
-TODO
-
-## Checklist:
-### Oppgave 1 - Kjell's python code
-
-#### A. SAM & GitHub actions workflow
-- [x]  Fjerne hardkoding  av S3 bucket navnet ```app.py koden```, slik at den leser verdien "BUCKET_NAME" fra en miljøvariabel.
-- [x]  Du skal opprette en GitHub Actions-arbeidsflyt for SAM applikasjonen. For hver push til main branch, skal
-  arbeidsflyten bygge og deploye Lambda-funksjonen.
-- [x] Som respons på en push til en annen branch en main, skal applikasjonen kun bygges.
-- [x] Sensor vil lage en fork av ditt repository. Forklar hva sensor må gjøre for å få GitHub Actions workflow til å kjøre i
-  sin egen GitHub-konto.
-
-#### B. Docker container
-- [x] Lag en Dockerfile som bygger et container image du kan bruke for å kjøre python koden.
-- [x] Dockerfilen skal lages i mappen ```/kjell/hello_world```.
-- [x] Sensor skal kunne gjøre følgende kommando for å bygge et
-container image og kjøre koden.
-```shell
-docker build -t kjellpy . 
-docker run -e AWS_ACCESS_KEY_ID=XXX -e AWS_SECRET_ACCESS_KEY=YYY -e BUCKET_NAME=kjellsimagebucket kjellpy
-```
-
-### Oppgave 2. Overgang til Java og Spring boot
-
-#### A. Dockerfile
-- [x] Test java-applikasjonen lokalt i ditt cloud9 miljø ved å stå i rotmappen til ditt repository, og kjøre kommandoen mvn spring-boot:run
-- [x] Du kan teste applikasjonen i en terminal med curl localhost:8080/scan-ppe?bucketName=<din bucket> og se på responsen.
-- [x] Lag en Dockerfile for Java-appliksjonen. Du skal lage en multi stage Dockerfile som både kompilerer og kjører applikasjonen.
-- [x] Sensor vil lage en fork av ditt repository, og skal kunne kjøre følgende kommandoer for å starte en docker container
-```shell
-docker build -t ppe . 
-docker run -p 8080:8080 -e AWS_ACCESS_KEY_ID=XXX -e AWS_SECRET_ACCESS_KEY=YYY -e BUCKET_NAME=kjellsimagebucket ppe
-```
-
-#### B. GitHub Actions workflow for container image og ECR
-- [x] Du skal nå automatisere prosessen med å bygge/kompilere og teste Java-applikasjonen. Lag en ny GitHub Actions Workflow fil, ikke gjenbruk den du lagde for Pythonkoden.
-- [x] Lag en GitHub actions workflow som ved hver push til main branch lager og publiserer et nytt Container image til et ECR repository.
-- [x] Workflow skal kompilere og bygge et nytt container image, men ikke publisere image til ECR dersom branch er noe annet en main.
-- [x] Du må selv lage et ECR repository i AWS miljøet, du trenger ikke automatisere prosessen med å lage dette.
-- [x] Container image skal ha en tag som er lik commit-hash i Git, for eksempel: glenn-ppe:b2572585e.
-- [x] Den siste versjonen av container image som blir pushet til ECR, skal i tillegg få en tag "latest".
-
-### Oppgave 3 - Terraform, AWS Apprunner og Infrastruktur som kode
-Se på koden som ligger i infra katalogen, den inneholder kun en app_runner_service og en IAM roller som gjør denne i stand til å gjøre API kall mot AWS Rekognition og lese fra S3.
-
-#### A. Kodeendringer og forbedringer
-- [x] Fjern hardkodingen av service_name, slik at du kan bruke ditt kandidatnummer eller noe annet som service navn.
-- [x] Se etter andre hard-kodede verdier og se om du kan forbedre kodekvaliteten.
-- - uhhhh, har glemt litt å se så hardt på dette, men har gjort mitt beste...
-- [x] Se på dokumentasjonen til aws_apprunner_service ressursen, og reduser CPU til 256, og Memory til 1024 (defaultverdiene er høyere)
-
-#### B. Terraform i GitHub Actions
-- [x] Utvid din GitHub Actions workflow som lager et Docker image, til også å kjøre terraformkoden
-- [x] På hver push til main, skal Terraformkoden kjøres etter jobber som bygger Docker container image
-- [x] Du må lege til Terraform provider og backend-konfigurasjon. Dette har Kjell glemt. Du kan bruke samme S3 bucket som vi har brukt til det formålet i øvingene.
-- [x] Beskriv også hvilke endringer, om noen, sensor må gjøre i sin fork, GitHub Actions workflow eller kode for å få denne til å kjøre i sin fork.
-
-### Oppgave 4. Feedback
-
-#### A. Utvid applikasjonen og legg inn "Måleinstrumenter"
-I denne oppgaven får dere stor kreativ frihet i å utforske tjenesten Rekognition. Derw skal lage ny og relevant funksjonalitet. Lag minst et nytt endepunkt, og utvid gjerne også den eksisterende koden med mer funksjonalitet. Se på dokumentasjonen; https://aws.amazon.com/rekognition/
-- [x] Nå som dere har en litt større kodebase. Gjør nødvendige endringer i Java-applikasjonen til å bruke Micrometer rammeverket for Metrics, og konfigurer for leveranse av Metrics til CloudWatch
-- [x] Dere kan detetter selv velge hvordan dere implementerer måleinstrumenter i koden.
-- [x] Dere skal skrive en kort begrunnelse for hvorfor dere har valgt måleinstrumentene dere har gjort, og valgene må være relevante. Eksempelvis vil en en teller som øker hver gang en metode blir kalt ikke bli vurdert som en god besvarelse, dette fordi denne metrikkene allerede leveres av Spring Boot/Actuator.
-
-#### B. CloudWatch Alarm og Terraform moduler
-- [x] Lag en CloudWatch-alarm som sender et varsel på Epost dersom den utløses.Dere velger selv kriteriet for kriterier til at alarmen skal løses ut, men dere må skrive en kort redgjørelse for valget.
-- [x] Alarmen skal lages ved hjelp av Terraformkode. Koden skal lages som en separat Terraform modul. Legg vekt på å unngå hardkoding av verdier i modulen for maksimal gjenbrukbarhet. Pass samtidig på at brukere av modulen ikke må sette mange variabler når de inkluderer den i koden sin.
+<a id="oppgavetekst"></a>
+<a id="krav"></a>
 ## Krav til leveransen
-
 * Eksamensoppgaven, kode og nødvendig filer er tilgjengelig i GitHub-repo: https://github.com/glennbechdevops/eksamen_2023.
 * Når du leverer inn oppgaven via WiseFlow, vennligst opprett et tekstdokument som kun inneholder en kobling til ditt
   repository.
@@ -198,6 +68,7 @@ Når sensoren evaluerer oppgaven, vil han/hun:
 - Løsning på problem med diskplassmangel - informasjon blir delt på Canvas-plattformen.
 - Informasjon om rettigheter og sikkerhet i Cloud 9 vil også bli delt på Canvas.
 
+<a id="evaluering"></a>
 # Evaluering
 
 - Oppgave 1. Kjells Pythonkode - 20 Poeng
@@ -206,6 +77,7 @@ Når sensoren evaluerer oppgaven, vil han/hun:
 - Oppgave 4. Feedback -30 Poeng
 - Oppgave 5. Drøfteoppgaver - 20 poeng
 
+<a id="oppgavebeskrivelse"></a>
 # Oppgavebeskrivelse
 
 I et pulserende teknologisamfunn på Grünerløkka, Oslo, har en livlig oppstart ved navn 'VerneVokterne' funnet
@@ -245,6 +117,7 @@ PPE er funnet.
 Bruk gjerne litt tid til å bli kjent med tjenesten i AWS
 miljøet https://eu-west-1.console.aws.amazon.com/rekognition/home
 
+<a id="oppgave1"></a>
 # Oppgave 1. Kjell's Python kode
 
 ## A. SAM & GitHub actions workflow
@@ -288,6 +161,7 @@ docker run -e AWS_ACCESS_KEY_ID=XXX -e AWS_SECRET_ACCESS_KEY=YYY -e BUCKET_NAME=
 
 Det ligger noen hint i filen app.py som vil hjelpe deg med å lage en ```Dockerfile```.
 
+<a id="oppgave2"></a>
 # Oppgave 2. Overgang til Java og Spring boot
 
 Du innser raskt at Python ikke er veien videre for et konkurransedyktig produkt og har selv laget starten på en
@@ -376,7 +250,8 @@ Lag en ny GitHub Actions Workflow fil, ikke gjenbruk den du lagde for Pythonkode
 * Container image skal ha en tag som er lik commit-hash i Git, for eksempel: ```glenn-ppe:b2572585e```.
 * Den siste versjonen av container image som blir pushet til ECR, skal i tillegg få en tag "latest".
 
-# Oppgave 3- Terraform, AWS Apprunner og Infrastruktur som kode
+<a id="oppgave3"></a>
+# Oppgave 3 - Terraform, AWS Apprunner og Infrastruktur som kode
 
 Se på koden som ligger i infra katalogen, den inneholder kun en app_runner_service og en IAM roller som gjør denne i
 stand til å gjøre API kall mot AWS Rekognition og lese fra S3.
@@ -396,6 +271,7 @@ stand til å gjøre API kall mot AWS Rekognition og lese fra S3.
   som vi har brukt til det formålet i øvingene.
 * Beskriv også hvilke endringer, om noen, sensor må gjøre i sin fork, GitHub Actions workflow eller kode for å få denne til å kjøre i sin fork.
 
+<a id="oppgave4"></a>
 # Oppgave 4. Feedback
 
 ## A. Utvid applikasjonen og legg inn "Måleinstrumenter"
@@ -437,7 +313,8 @@ Alarmen skal lages ved hjelp av Terraformkode. Koden skal lages som en separat T
 hardkoding  av verdier i modulen for maksimal gjenbrukbarhet. Pass samtidig på at brukere av modulen ikke må sette mange
 variabler når de inkluderer den i koden sin.
 
-# Oppgave 4. Drøfteoppgaver
+<a id="oppgave5"></a>
+# Oppgave 5. Drøfteoppgaver
 
 ## Det Første Prinsippet - Flyt
 
@@ -487,3 +364,171 @@ Behovene Drøft hvordan feedback bidrar til kontinuerlig forbedring og hvordan d
 utviklingslivssyklusen.
 
 ## LYKKE TIL OG HA DET GØY MED OPPGAVEN!
+
+<a id="besvarelse"></a>
+<a id="besvarelse1"></a>
+### Oppgave 1 - Kjell's python code
+
+#### A. SAM & GitHub actions workflow
+- [x]  Fjerne hardkoding  av S3 bucket navnet ```app.py koden```, slik at den leser verdien "BUCKET_NAME" fra en miljøvariabel.
+- [x]  Du skal opprette en GitHub Actions-arbeidsflyt for SAM applikasjonen. For hver push til main branch, skal
+  arbeidsflyten bygge og deploye Lambda-funksjonen.
+- [x] Som respons på en push til en annen branch en main, skal applikasjonen kun bygges.
+- [x] Sensor vil lage en fork av ditt repository. Forklar hva sensor må gjøre for å få GitHub Actions workflow til å kjøre i
+  sin egen GitHub-konto.
+
+#### B. Docker container
+- [x] Lag en Dockerfile som bygger et container image du kan bruke for å kjøre python koden.
+- [x] Dockerfilen skal lages i mappen ```/kjell/hello_world```.
+- [x] Sensor skal kunne gjøre følgende kommando for å bygge et
+container image og kjøre koden.
+```shell
+docker build -t kjellpy . 
+docker run -e AWS_ACCESS_KEY_ID=XXX -e AWS_SECRET_ACCESS_KEY=YYY -e BUCKET_NAME=kjellsimagebucket kjellpy
+```
+
+<a id="besvarelse2"></a>
+### Oppgave 2. Overgang til Java og Spring boot
+
+#### A. Dockerfile
+- [x] Test java-applikasjonen lokalt i ditt cloud9 miljø ved å stå i rotmappen til ditt repository, og kjøre kommandoen mvn spring-boot:run
+- [x] Du kan teste applikasjonen i en terminal med curl localhost:8080/scan-ppe?bucketName=<din bucket> og se på responsen.
+- [x] Lag en Dockerfile for Java-appliksjonen. Du skal lage en multi stage Dockerfile som både kompilerer og kjører applikasjonen.
+- [x] Sensor vil lage en fork av ditt repository, og skal kunne kjøre følgende kommandoer for å starte en docker container
+```shell
+docker build -t ppe . 
+docker run -p 8080:8080 -e AWS_ACCESS_KEY_ID=XXX -e AWS_SECRET_ACCESS_KEY=YYY -e BUCKET_NAME=kjellsimagebucket ppe
+```
+
+#### B. GitHub Actions workflow for container image og ECR
+- [x] Du skal nå automatisere prosessen med å bygge/kompilere og teste Java-applikasjonen. Lag en ny GitHub Actions Workflow fil, ikke gjenbruk den du lagde for Pythonkoden.
+- [x] Lag en GitHub actions workflow som ved hver push til main branch lager og publiserer et nytt Container image til et ECR repository.
+- [x] Workflow skal kompilere og bygge et nytt container image, men ikke publisere image til ECR dersom branch er noe annet en main.
+- [x] Du må selv lage et ECR repository i AWS miljøet, du trenger ikke automatisere prosessen med å lage dette.
+- [x] Container image skal ha en tag som er lik commit-hash i Git, for eksempel: glenn-ppe:b2572585e.
+- [x] Den siste versjonen av container image som blir pushet til ECR, skal i tillegg få en tag "latest".
+
+<a id="besvarelse3"></a>
+### Oppgave 3 - Terraform, AWS Apprunner og Infrastruktur som kode
+Se på koden som ligger i infra katalogen, den inneholder kun en app_runner_service og en IAM roller som gjør denne i stand til å gjøre API kall mot AWS Rekognition og lese fra S3.
+
+#### A. Kodeendringer og forbedringer
+- [x] Fjern hardkodingen av service_name, slik at du kan bruke ditt kandidatnummer eller noe annet som service navn.
+- [x] Se etter andre hard-kodede verdier og se om du kan forbedre kodekvaliteten.
+- - uhhhh, har glemt litt å se så hardt på dette, men har gjort mitt beste...
+- [x] Se på dokumentasjonen til aws_apprunner_service ressursen, og reduser CPU til 256, og Memory til 1024 (defaultverdiene er høyere)
+
+#### B. Terraform i GitHub Actions
+- [x] Utvid din GitHub Actions workflow som lager et Docker image, til også å kjøre terraformkoden
+- [x] På hver push til main, skal Terraformkoden kjøres etter jobber som bygger Docker container image
+- [x] Du må lege til Terraform provider og backend-konfigurasjon. Dette har Kjell glemt. Du kan bruke samme S3 bucket som vi har brukt til det formålet i øvingene.
+- [x] Beskriv også hvilke endringer, om noen, sensor må gjøre i sin fork, GitHub Actions workflow eller kode for å få denne til å kjøre i sin fork.
+
+<a id="besvarelse4"></a>
+### Oppgave 4. Feedback
+
+<a id="b4checklist"></a>
+#### A. Utvid applikasjonen og legg inn "Måleinstrumenter"
+I denne oppgaven får dere stor kreativ frihet i å utforske tjenesten Rekognition. Derw skal lage ny og relevant funksjonalitet. Lag minst et nytt endepunkt, og utvid gjerne også den eksisterende koden med mer funksjonalitet. Se på dokumentasjonen; https://aws.amazon.com/rekognition/
+- [x] Nå som dere har en litt større kodebase. Gjør nødvendige endringer i Java-applikasjonen til å bruke Micrometer rammeverket for Metrics, og konfigurer for leveranse av Metrics til CloudWatch
+- [x] Dere kan detetter selv velge hvordan dere implementerer måleinstrumenter i koden.
+- [x] Dere skal skrive en kort begrunnelse for hvorfor dere har valgt måleinstrumentene dere har gjort, og valgene må være relevante. Eksempelvis vil en en teller som øker hver gang en metode blir kalt ikke bli vurdert som en god besvarelse, dette fordi denne metrikkene allerede leveres av Spring Boot/Actuator.
+
+#### B. CloudWatch Alarm og Terraform moduler
+- [x] Lag en CloudWatch-alarm som sender et varsel på Epost dersom den utløses.Dere velger selv kriteriet for kriterier til at alarmen skal løses ut, men dere må skrive en kort redgjørelse for valget.
+- [x] Alarmen skal lages ved hjelp av Terraformkode. Koden skal lages som en separat Terraform modul. Legg vekt på å unngå hardkoding av verdier i modulen for maksimal gjenbrukbarhet. Pass samtidig på at brukere av modulen ikke må sette mange variabler når de inkluderer den i koden sin.
+
+
+
+## Begrunnelser og bevsarelser:
+
+<a id="b4bilde"></a>
+### Oppgave 4. Feedback
+![bilde](https://github.com/Mebu98/eksamen_2023_kn2004/assets/89260657/47d6f960-3158-4813-95b0-8a1fa86ccfdb)
+
+<a id="b4begrunnelse"></a>
+#### A. Utvid applikasjonen og legg inn "Måleinstrumenter"
+Jeg la til måleinstrumenter som måler antall bilder scannet, antall personer sett, antall personer uten maske, og antall personer uten hjelm. 
+Videre har jeg lagt til timers for hvor lang tid det tok å analysere hvert bilde, men de har jeg ikke fått lagt til ennå. 
+
+#### B. CloudWatch Alarm og Terraform moduler
+Jeg har lagt til en alarm som går av hvis anntall personer uten hjelm stiger over 25%, dette kan muligens være nyttig på f.eks en byggeplass der alle burde gå med hjelm. 
+Grunnen til at jeg valgte 25% som grensen er fordig det er mulig at folk som ikke er på byggeplassen kan evt bli sett på bilde, videre er det jo mulig at den feil-registrer hvis hode til en person er gjemt (har ikke eksperimentert så mye...)
+
+<a id="besvarelse5"></a>
+### Oppgave 5. Drøfteoppgaver
+
+<a id="b5a"><a/>
+### A. Kontinuerlig Integrering
+CI er en programmeringsmetodikk som innebærer at å sammenslå kodeendringer fra flere utviklere i et felles område ofte og automatisk. En vanlig utviklingsprosess innebærer ofte et par steg; utvikling -> bygging -> testing -> lansering -> analysering av bruk -> planlegging -> og så tilbake til utvikling. CI gjør det dermed mulig å automatisere store deler av bygging, testing, og lanseringen, som fort kan kreve mye repetisjon og skriving. 
+
+Fordeler med CI:
+-	Reduserer sjansen til store merge-conflicts og integrasjonsfeil ved å holde kodebasen som blir jobbet på i team oppdatert.
+-	Rask tilbakemelding på kvalitet og funksjonaliteten til koden gjennom automatisert validering og testing.
+-	Gjør det lettere å jobbe sammen i team når man har litt ide av hva andre holder på med.
+
+Ulemper med CI:
+-	Krever trening for å bli kjent med CI verktøy og arbeidsmetodikk.
+-	Krever servere hvor bygging og testing kan bli utført, dette kan øke kompleksiteten og kostnadene til infrastrukturen.
+-	Krever hyppig sammenslåing, siden hvis man ender opp for langt bak main branch kan det lede til store merge-conflicts og bugs.
+	
+Eksempel på praktisk arbeid med CI:
+1.	Du jobber i et team med 5 andre, hvor hver av dere holder på med ditt i en egen lokal branch av main.
+2.	Når du er ferdig med det du holder på med laster du opp den lokale branch’en din og sender inn en pull-request til main.
+3.	pull-request’en trigger en automatisert workflow fil, som f.eks github actions som bygger og tester prosjektet etter du har lastet det opp sånn at alt ‘’funker’’ som det skal. Hvis den mislykkes noe sted, sender den en melding til deg / teamet.
+4.	Andre utviklere på teamet ditt ser over hva du har gjort og resultatene til workflows’ene.
+5.	Hvis de andre syntes det ser bra ut og det passerer alle testene, så blir den sendt videre til main branch
+6.	Main branch kjører sin egen workflow for å dobbelt sjekke at alt funker i main.
+7.	Hvis main sin workflow er satt opp for det, så er det også mulig at lanseringen blir automatisert.
+
+<a id="b5b"><a/>
+### B. Sammenligning av Scrum/Smidig og DevOps fra et Utviklers Perspektiv
+#### Scrum / Smidig metodikk
+Scrum er en metodikk som brukes til å utvikle, levere, og vedlikeholde komplekse produkter. Det er basert på erfaringsfilosofi, der kunnskap kommer fra erfaring og beslutninger tas ut ifra det som er kjent. Scrum har tre hoved pilarer; åpenhet, introspeksjon, og tilpasning. 
+
+Scrum består av tre roller:
+1.	Produkteieren er ansvarlig for å representere kunden og prioritere oppgavene som skal utføres. De har som oftest ansvar for å lage og vedlikeholde «product backlog», som er en liste av krav som skal inngå i produktet.
+2.	Utviklingsteamet har ansvar for å bygge et produkt i henhold til produkteierens prioritering. De er ofte selvorganiserende, tverrfaglig, og samarbeidsorientert.
+3.	Scrum lederen er ansvarlig for godt samarbeid og støtte i løpet prosessen. De hjelper produkteieren, utviklingsteamet, og organisasjonen med å forstå og følge scrum rammeverket.
+
+I scrum jobber man ofte i «sprints» som ofte er et par uker. I løpet av en sprint har man et par faste hendelser: 
+-	Sprintplanlegging er et møte der produkteieren og utviklingsteamet blir enige om hva som skal gjøres i den kommende sprinten. Møtet består av to deler: den første delen handler om å velge hvilke elementer fra produktkøen som skal inngå i sprinten, og den andre delen handler om å lage en plan for hvordan disse elementene skal iverksettes.
+-	Daglig scrum er et kort møte hver dag der utviklingsteamet deler status, fremdrift, og utfordringer med hverandre. Møtet varer ofte ikke lengre enn 15 minutter og har tre spørsmål: hva har jeg gjort siden forrige møte, hva skal jeg gjøre før neste møte, og hva hindrer meg i å gjøre mitt arbeid.
+-	Sprintgjennomgang er et møte mot slutten av sprinten der utviklingsteamet presenterer produktinkrementet som er laget i sprinten for produkteieren. Møtet har som formål å samle tilbakemeldinger, evaluere resultatet og justere produktkøen.
+-	Sprintevaluering med burndown-diagram er et møte der utviklingsteamet og scrum lederen reflekterer over sprinten som har gått og identifiserer muligheter for forbedring. Møtet har som formål å øke kvaliteten, effektiviteten og tilfredsheten i teamet.
+
+Ulemper med scrum:
+-	Scrum krever en arbeidskultur av åpenhet og tillit, hvor man kan be om assistanse hvis man møter på noe man ikke har kunnskap til og kan akseptere feil.
+-	Krever at produkteier har en klar visjon for produktet. Hvis produkteieren ikke har nokk kunnskap eller autoritet kan det føre til misforståelser og konflikter mellom dem og utviklingsteamet.
+-	Scrum lederen har en viktig rolle i å fasilitere og støtte prosessen, men ikke en tradisjonell prosjektlederrolle. Scrum lederen skal ikke gi instruksjoner, delegere oppgaver eller kontrollere teamet, men heller hjelpe teamet med å fjerne hindringer, løse konflikter og forbedre seg. Dette kan være utfordrende for Scrum ledere som har vanskelig for å gi slipp på autoritet eller ansvar, eller for noen team som forventer mer ledelse eller veiledning.
+
+
+#### DevOps
+DevOps er en metodikk som har som mål å automatisere så mye som mulig av utviklingssyklusen. Noen av de grunnleggene prinsippene til DevOps er:
+-	Samarbeid, utviklings- og driftsteam skal jobbe sammen, dele, og gi tilbakemelding til hverandre gjennom hele prossesen.
+-	Automatisering, ett av de viktigste elementene av DevOps er å automatisere så mye som mulig av utviklingssyklusen. Dette gir mer tid til utviklere, slik at de kan skrive mer kode og utvikle funksjoner fortere. Det bidrar også til reduksjon av menneskelige feil.
+-	
+Fordeler med DevOps:
+-	Ved å bruke automatiserte tester, CI, og CD kan teamene oppdage og rette feil raskere.
+-	Med bruken av smidige metodikker kan teamene levere programvaren raskere og oftere, dette kan gi dem et konkurransefortrinn i markedet.
+-	Automatisering av så mye som mulig reduserer mye manuelt arbeid, menneskelige feil, og sløsing.
+
+Ulemper med DevOps:
+-	DevOps kan kreve at alle teammedlemmene har et bredt spektrum av ferdigheter og kunnskap til forskjellig verktøy.
+-	DevOps kan innebære bruken av mange verktøy og tjenester, noe som kan påvirke kompleksiteten, skalerbarheten, og fleksibiliteten. 
+-	Hvis det er mange verktøy, prosesser, og tjenester som blir tatt i bruk i automatiseringen kan det fort bli problemer hvis det viser seg å være ett problem med en av dem.
+
+#### Sammenlign og kontrast
+
+Scrum er et rammeverk av roller, regler, og hendelser. Det består av iterasjoner kalt sprinter, som vanligvis varer fra en til fire uker, og sikrer dermed regelmessig levering av nye produkt versjoner. DevOps derimot er en samling av teknologier, ideer, og prosesser som brukes av både utviklings og driftsteam for å forbedre utviklingsprosessen. Begge metodologiene vektlegger effektiv kommunikasjon mellom de forskjellige partiene i gruppen.
+Scrum bruker ulike artefakter som; produktloggen, sprintloggen, og burndown-grafen for å planlegge, utføre, og evaluere arbeidet. DevOps derimot fokuserer på automatisering og optimalisering av utviklingsprosessen. 
+Scrum er en metodikk som kan brukes for å utvikle nesten alle typer prosjekter, og er egnet for de som krever regelmessige endringer, tilbakemeldinger, og forbedringer. Scrum er også godt egnet for prosjekter som har team med tverrfaglig erfaring og kan jobbe selvstendig og kreativt. DevOps er en kultur som vil nesten påvirke hele organisasjonen, og påvirker alle aspekter av utviklingsprosessen. DevOps er kritisk for prosjekter som krever hyppig utgivelser og ikke har råd til lang ventetid mellom utvikling og drift.
+
+Til slutt er Scrum og DevOps ikke motstridene metodikker, en kjent organisasjon som bruker begge metodikkene sammen er Microsoft!
+
+<a id="b5c"><a/>
+### C. Det Andre Prinsippet - Feedback
+
+TODO
+
+
