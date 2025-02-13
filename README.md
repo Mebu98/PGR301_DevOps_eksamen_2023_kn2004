@@ -1,6 +1,7 @@
-# Eksamen PGR301 2023
-# ToC
+# Eksamen PGR301 DevOps Høst 2023
+## Table of Contents
 <!-- ToC Start -->
+- [Secrets & Variables](#secretsAndVariables)
 - [Oppgavetekst](#oppgavetekst)
   * [Oppgave 1 - Kjell's python code](#oppgave1)
   * [Oppgave 2 - Overgang til Java og Spring Boot](#oppgave2)
@@ -19,24 +20,31 @@
 
 <!-- Toc End -->
 
-## Secrets og Variables som trengs for at Github Actions skal kjøre som forventet.
-### AWS (environment secrets)
-- AWS_ACCESS_KEY_ID 
-- AWS_SECRET_ACCESS_KEY
-* Begge disse to får man ved å gå inn i "IAM" -> "My security credentials" -> under "Access Keys" trykk "create new access key" -> velg "Other" -> lag en description -> ta vare på keysene som blir vist, det burde være mulig å laste de ned.
-* Kan også bruke denne linken for å komme seg til Key Wizard: https://us-east-1.console.aws.amazon.com/iam/home?region=eu-north-1#/security_credentials/access-key-wizard
+<a id="secretsAndVariables"></a>
+# Secrets & Variables som trengs for Github Actions
+## AWS
+- AWS_ACCESS_KEY_ID = *your_access_key_id*
+- AWS_SECRET_ACCESS_KEY = *your_secret_access_key*
 
-### Kjell's python kode (environment variables)
-- DEPLOY_BUCKET_NAME = Dette er hvilken Bucket SAM skal deploye til (f.eks "candidate2004")
-- DEPLOY_STACK_NAME  = Hva stacken SAM lager skal kalles (f.eks "candidate2004")
-- IMAGE_BUCKET_NAME  = Navnet til bucketen med bildene som skal analyseres (f.eks "kjellsimagebucket" eller "candidate2004-image-bucket")
+Begge disse to får man ved å gå inn i "IAM" -> "My security credentials" -> under "Access Keys" -> "create new access key" -> velg "Other" -> lag en description -> ta vare på de som blir vist / last ned.
 
-### Terraform / Java (environment variables)
--  ECR_REPO          = Linken til ECR repo der Docker Imagen skal bli lastet opp (f.eks "244530008913.dkr.ecr.eu-west-1.amazonaws.com/2004-ecr-repo")
+Burde også kunne bruke denne linken for å komme seg direkte til Key Wizard: https://us-east-1.console.aws.amazon.com/iam/home?region=eu-north-1#/security_credentials/access-key-wizard
+
+## Kjell's python kode
+- DEPLOY_BUCKET_NAME = 
+	- Dette er hvilken Bucket SAM skal deploye til (f.eks "candidate2004")
+- DEPLOY_STACK_NAME  =
+	- Hva stacken SAM lager skal kalles (f.eks "candidate2004")
+- IMAGE_BUCKET_NAME  =
+	- Navnet til bucketen med bildene som skal analyseres (f.eks "kjellsimagebucket" eller "candidate2004-image-bucket")
+
+### Terraform / Java
+-  ECR_REPO          =
+	-  Linken til ECR repo der Docker Imagen skal bli lastet opp (f.eks "244530008913.dkr.ecr.eu-west-1.amazonaws.com/2004-ecr-repo")
 
 
 <a id="oppgavetekst"></a>
-<a id="krav"></a>
+# Oppgavetekst
 ## Krav til leveransen
 * Eksamensoppgaven, kode og nødvendig filer er tilgjengelig i GitHub-repo: https://github.com/glennbechdevops/eksamen_2023.
 * Når du leverer inn oppgaven via WiseFlow, vennligst opprett et tekstdokument som kun inneholder en kobling til ditt
@@ -366,9 +374,10 @@ utviklingslivssyklusen.
 ## LYKKE TIL OG HA DET GØY MED OPPGAVEN!
 
 <a id="besvarelse"></a>
+# Besvarelse
+
 <a id="besvarelse1"></a>
 ### Oppgave 1 - Kjell's python code
-
 #### A. SAM & GitHub actions workflow
 - [x]  Fjerne hardkoding  av S3 bucket navnet ```app.py koden```, slik at den leser verdien "BUCKET_NAME" fra en miljøvariabel.
 - [x]  Du skal opprette en GitHub Actions-arbeidsflyt for SAM applikasjonen. For hver push til main branch, skal
